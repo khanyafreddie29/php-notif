@@ -1,0 +1,31 @@
+create database if not exists tracker_db;
+use tracker_db;
+
+create table employees(
+	employee_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    email VARCHAR(500) NOT NULL,
+    username VARCHAR(100) NOT NULL,
+    password VARCHAR(100) NOT NULL
+);
+
+create table notification_records(
+	notification_id INT AUTO_INCREMENT PRIMARY KEY UNIQUE NOT NULL,
+    employee_id INT NOT NULL,
+    title TEXT NOT NULL,
+    message TEXT NOT NULL,
+    date_created DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    is_broadcast TINYINT NOT NULL DEFAULT '0'
+);
+
+INSERT INTO employees (name, last_name, email, username, password)
+VALUES 
+('emily', 'smith', 'emilytest@gmail.com', 'emilytest01', 'myemily01'),
+('sarah', 'king', 'sarah02@gmail.com', 'sarahtest02', 'mysarah02');
+
+insert into notification_records (employee_id, title, message,is_broadcast) values
+(1, 'Clock Out Reminder', 'You have not clocked out yet. Please remember to clock out before leaving', 0),
+(1,'Late Coming', 'Please make your way to admin to sign in', 0),
+(2, 'It is teatime', 'Remember to smoke your lungs out', 0),
+(2,'Late Coming', 'Please make your way to admin to sign in', 0)
